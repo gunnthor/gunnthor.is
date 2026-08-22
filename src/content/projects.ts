@@ -42,27 +42,27 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    slug: "nafnaval",
-    title: "Nafnaval",
+    slug: "sagas-of-blood-and-fire",
+    title: "Sagas of Blood & Fire",
+    altTitle: "IcelandHistoryMap",
     tagline:
-      "Every name in the Icelandic name register, broken into the parts it is built from.",
+      "An interactive map of Iceland's historical battles and violent conflicts.",
     summary:
-      "Icelandic names are compounds. Þórbjörg is Þór plus björg. That structure is the interesting part, and nothing online let you follow a single element from one name to the next.",
+      "Iceland's conflicts are thoroughly documented and poorly presented: long prose, no geography, and no easy way to see that two events happened in the same valley two centuries apart.",
     built:
-      "A static site covering the whole mannanafnaskrá: meaning, declension, categories, and how many people carry each name. Every element gets its own page, so you can start at a name and end up somewhere unexpected.",
+      "A map you move through rather than a page you scroll. Conflicts sit where they actually happened, and the detail opens up only when you ask for it.",
     interesting:
-      "Meaning resolves through a strict precedence chain: hand-written cited entries first, then a lexicon of roughly 215 Old Norse elements sourced to public-domain dictionaries, and only then AI-drafted text, which stays quarantined behind an óstaðfest badge and is never merged into the cited data. The model fills gaps; it does not get to launder itself into a source.",
-    stack: ["Astro", "TypeScript", "Static site generation"],
+      "It is built for someone with five minutes, not a semester. The editorial constraint, friendly and fast history for the impatient, decided the interface: the map answers 'where and roughly when' immediately, and everything else stays folded away.",
+    stack: ["React", "TypeScript", "Vite", "Leaflet"],
     status: "Live",
     facts: [
-      { label: "Scale", value: "~6,000 prerendered pages" },
-      { label: "Lexicon", value: "~215 Old Norse elements" },
-      { label: "Sources", value: "island.is · Þjóðskrá · BÍN" },
-      { label: "Client JS", value: "One filtering island" },
-      { label: "Domain", value: "nafn.gunnthor.is" },
+      { label: "Surface", value: "Single full-bleed map" },
+      { label: "Rendering", value: "Leaflet tiles + custom markers" },
+      { label: "Audience", value: "Curious, not academic" },
+      { label: "Domain", value: "map.gunnthor.is" },
     ],
-    repo: "https://github.com/gunnthor/Nafnaval",
-    live: "https://nafn.gunnthor.is",
+    repo: "https://github.com/gunnthor/IcelandHistoryMap",
+    live: "https://map.gunnthor.is",
     featured: true,
   },
   {
@@ -90,49 +90,27 @@ export const projects: Project[] = [
     featured: true,
   },
   {
-    slug: "sagas-of-blood-and-fire",
-    title: "Sagas of Blood & Fire",
-    altTitle: "IcelandHistoryMap",
+    slug: "nafnaval",
+    title: "Nafnaval",
     tagline:
-      "An interactive map of Iceland's historical battles and violent conflicts.",
+      "Every name in the Icelandic name register, broken into the parts it is built from.",
     summary:
-      "Iceland's conflicts are thoroughly documented and poorly presented: long prose, no geography, and no easy way to see that two events happened in the same valley two centuries apart.",
+      "Icelandic names are compounds. Þórbjörg is Þór plus björg. That structure is the interesting part, and nothing online let you follow a single element from one name to the next.",
     built:
-      "A map you move through rather than a page you scroll. Conflicts sit where they actually happened, and the detail opens up only when you ask for it.",
+      "A static site covering the whole mannanafnaskrá: meaning, declension, categories, and how many people carry each name. Every element gets its own page, so you can start at a name and end up somewhere unexpected.",
     interesting:
-      "It is built for someone with five minutes, not a semester. The editorial constraint, friendly and fast history for the impatient, decided the interface: the map answers 'where and roughly when' immediately, and everything else stays folded away.",
-    stack: ["React", "TypeScript", "Vite", "Leaflet"],
+      "Meaning resolves through a strict precedence chain: hand-written cited entries first, then a lexicon of roughly 215 Old Norse elements sourced to public-domain dictionaries, and only then AI-drafted text, which stays quarantined behind an óstaðfest badge and is never merged into the cited data. The model fills gaps; it does not get to launder itself into a source.",
+    stack: ["Astro", "TypeScript", "Static site generation"],
     status: "Live",
     facts: [
-      { label: "Surface", value: "Single full-bleed map" },
-      { label: "Rendering", value: "Leaflet tiles + custom markers" },
-      { label: "Audience", value: "Curious, not academic" },
-      { label: "Domain", value: "map.gunnthor.is" },
+      { label: "Scale", value: "~6,000 prerendered pages" },
+      { label: "Lexicon", value: "~215 Old Norse elements" },
+      { label: "Sources", value: "island.is · Þjóðskrá · BÍN" },
+      { label: "Client JS", value: "One filtering island" },
+      { label: "Domain", value: "nafn.gunnthor.is" },
     ],
-    repo: "https://github.com/gunnthor/IcelandHistoryMap",
-    live: "https://map.gunnthor.is",
-    featured: true,
-  },
-  {
-    slug: "memeguessr",
-    title: "MemeGuessr",
-    tagline: "A daily GeoGuessr-style game about when memes went viral.",
-    summary:
-      "Everyone recognises the meme. Almost nobody can place the year. That gap between instant recognition and total vagueness is the whole game.",
-    built:
-      "One puzzle a day: see the meme, guess the moment it broke, get scored on how close you were, and share the result without spoiling it.",
-    interesting:
-      "It moves the guessing axis from space to time. The scoring has to reward being roughly right, because meme virality is a slope rather than a date, so the interesting design work is in how generously wrong answers are treated.",
-    stack: ["Next.js", "TypeScript"],
-    status: "Live",
-    facts: [
-      { label: "Format", value: "One round per day" },
-      { label: "Loop", value: "Guess → score → share" },
-      { label: "Axis", value: "Time, not place" },
-      { label: "Domain", value: "memeguessr.com" },
-    ],
-    repo: "https://github.com/gunnthor/memeguessr",
-    live: "https://www.memeguessr.com",
+    repo: "https://github.com/gunnthor/Nafnaval",
+    live: "https://nafn.gunnthor.is",
     featured: true,
   },
   {
@@ -155,6 +133,28 @@ export const projects: Project[] = [
     ],
     repo: "https://github.com/gunnthor/SpinPage",
     live: "https://www.ruglad.com",
+    featured: true,
+  },
+  {
+    slug: "memeguessr",
+    title: "MemeGuessr",
+    tagline: "A daily GeoGuessr-style game about when memes went viral.",
+    summary:
+      "Everyone recognises the meme. Almost nobody can place the year. That gap between instant recognition and total vagueness is the whole game.",
+    built:
+      "One puzzle a day: see the meme, guess the moment it broke, get scored on how close you were, and share the result without spoiling it.",
+    interesting:
+      "It moves the guessing axis from space to time. The scoring has to reward being roughly right, because meme virality is a slope rather than a date, so the interesting design work is in how generously wrong answers are treated.",
+    stack: ["Next.js", "TypeScript"],
+    status: "Live",
+    facts: [
+      { label: "Format", value: "One round per day" },
+      { label: "Loop", value: "Guess → score → share" },
+      { label: "Axis", value: "Time, not place" },
+      { label: "Domain", value: "memeguessr.com" },
+    ],
+    repo: "https://github.com/gunnthor/memeguessr",
+    live: "https://www.memeguessr.com",
     featured: true,
   },
 ];

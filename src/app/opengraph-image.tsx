@@ -101,14 +101,14 @@ export default async function OpengraphImage() {
             alignItems: "center",
             borderTop: "1px solid #1e2226",
             paddingTop: 26,
-            fontSize: 21,
-            letterSpacing: 1.5,
+            fontSize: 19,
+            letterSpacing: 1.1,
             color: "#949ca5",
           }}
         >
           <div style={{ display: "flex" }}>www.gunnthor.is</div>
           <div style={{ display: "flex" }}>
-            Nafnaval · Sagas of Blood &amp; Fire · MemeGuessr · SpinPage
+            Sagas of Blood &amp; Fire · Landlíf · Nafnaval · SpinPage · MemeGuessr
           </div>
         </div>
       </div>

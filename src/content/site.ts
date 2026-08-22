@@ -48,5 +48,5 @@ export const site = {
     linkedin: "https://is.linkedin.com/in/gunnthor",
   },
   metaDescription:
-    "Gunnþór Karl Rafnsson works with data, explores AI, and turns curious ideas into working products. Selected projects: Nafnaval, Landlíf, Sagas of Blood & Fire, MemeGuessr and SpinPage.",
+    "Gunnþór Karl Rafnsson works with data, explores AI, and turns curious ideas into working products. Selected projects: Sagas of Blood & Fire, Landlíf, Nafnaval, SpinPage and MemeGuessr.",
 } as const;
