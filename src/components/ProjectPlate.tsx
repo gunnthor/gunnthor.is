@@ -8,7 +8,15 @@ type ProjectPlateProps = {
   detail?: boolean;
 };
 
-const externalLinkClass =
+/* The primary action on every card. Deliberately heavier than "Source" so the
+   thing a visitor most likely wants is the thing they see first. */
+const primaryLinkClass =
+  "inline-flex items-center gap-2 rounded-xs border border-signal/45 bg-signal/10 " +
+  "px-4 py-2.5 font-mono text-[0.75rem] tracking-[0.14em] uppercase text-signal " +
+  "transition-colors hover:border-signal hover:bg-signal hover:text-ink " +
+  "focus-visible:border-signal focus-visible:bg-signal focus-visible:text-ink";
+
+const secondaryLinkClass =
   "link-signal font-mono text-[0.72rem] tracking-[0.12em] uppercase";
 
 export function ProjectPlate({
@@ -99,11 +107,11 @@ export function ProjectPlate({
         ))}
       </ul>
 
-      <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 border-t border-line pt-5">
+      <div className="mt-7 flex flex-wrap items-center gap-x-5 gap-y-3 border-t border-line pt-5">
         {project.live ? (
           <a
             href={project.live}
-            className={externalLinkClass}
+            className={primaryLinkClass}
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -113,7 +121,7 @@ export function ProjectPlate({
         ) : null}
         <a
           href={project.repo}
-          className={externalLinkClass}
+          className={secondaryLinkClass}
           target="_blank"
           rel="noopener noreferrer"
         >

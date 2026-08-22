@@ -59,9 +59,10 @@ export const projects: Project[] = [
       { label: "Lexicon", value: "~215 Old Norse elements" },
       { label: "Sources", value: "island.is · Þjóðskrá · BÍN" },
       { label: "Client JS", value: "One filtering island" },
+      { label: "Domain", value: "nafn.gunnthor.is" },
     ],
     repo: "https://github.com/gunnthor/Nafnaval",
-    live: "https://nafnaval-ten.vercel.app",
+    live: "https://nafn.gunnthor.is",
     featured: true,
   },
   {
@@ -106,9 +107,10 @@ export const projects: Project[] = [
       { label: "Surface", value: "Single full-bleed map" },
       { label: "Rendering", value: "Leaflet tiles + custom markers" },
       { label: "Audience", value: "Curious, not academic" },
+      { label: "Domain", value: "map.gunnthor.is" },
     ],
     repo: "https://github.com/gunnthor/IcelandHistoryMap",
-    live: "https://iceland-ruddy.vercel.app",
+    live: "https://map.gunnthor.is",
     featured: true,
   },
   {
