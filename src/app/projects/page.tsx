@@ -7,7 +7,7 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "A curated index of Gunnþór Karl Rafnsson's projects: Nafnaval, Sagas of Blood & Fire, MemeGuessr and SpinPage. What each one is, why it exists, and what it is built with.",
+    "A curated index of Gunnþór Karl Rafnsson's projects: Nafnaval, Landlíf, Sagas of Blood & Fire, MemeGuessr and SpinPage. What each one is, why it exists, and what it is built with.",
   alternates: { canonical: "/projects" },
   openGraph: {
     title: `Projects · ${site.shortName}`,

@@ -39,8 +39,8 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
-            Four of those products are below. Each one exists because I wanted
-            an answer that nothing on the internet would give me.
+            Five of them are below. Most began as a question I could not answer
+            by searching, so I built the thing that answers it.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -74,11 +74,11 @@ export default function HomePage() {
             id="work-heading"
             className="mt-6 max-w-2xl text-display leading-tight font-semibold tracking-[-0.02em] text-text"
           >
-            Four things I built and finished.
+            Five things I built and finished.
           </h2>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
-            All four are live. The code for every one is public.
+            All five are live. The code for every one is public.
           </p>
 
           <div className="mt-12 grid gap-5 lg:grid-cols-2">

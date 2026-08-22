@@ -65,6 +65,30 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: "landlif",
+    title: "Landlíf",
+    altTitle: "Landsbyggðin lifi",
+    tagline:
+      "The website for an Icelandic nonprofit working to strengthen rural communities.",
+    summary:
+      "Landsbyggðin lifi is an association for the building up and strengthening of rural Iceland. It needed a public home the people running it could keep current themselves, rather than one that quietly goes stale the moment the developer moves on.",
+    built:
+      "An Icelandic-language site covering who they are and what they do, with news, photo galleries from events, and a way to get in touch. News and images are edited through a CMS, so the organisation publishes on its own schedule.",
+    interesting:
+      "It was built to be handed over. Content lives in Sanity so volunteers can post without touching code, and the repository now sits under the organisation's own GitHub account rather than mine. Success here looks like the site staying useful with no involvement from me at all.",
+    stack: ["Next.js", "TypeScript", "Sanity", "Vercel"],
+    status: "Live",
+    facts: [
+      { label: "Built for", value: "A nonprofit association" },
+      { label: "Language", value: "Icelandic" },
+      { label: "Content", value: "Edited in Sanity" },
+      { label: "Domain", value: "landlif.is" },
+    ],
+    repo: "https://github.com/LandsbyggdinLifi/landlif-website",
+    live: "https://www.landlif.is",
+    featured: true,
+  },
+  {
     slug: "sagas-of-blood-and-fire",
     title: "Sagas of Blood & Fire",
     altTitle: "IcelandHistoryMap",
