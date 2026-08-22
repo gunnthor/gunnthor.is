@@ -22,7 +22,7 @@ yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
 
-# env files — never commit secrets
+# env files: never commit secrets
 .env
 .env*.local
 .env.production
@@ -33,7 +33,7 @@ yarn-error.log*
 # vercel
 .vercel
 
-# local working notes / agent config — not for the public repo
+# local working notes / agent config, not for the public repo
 CLAUDE.md
 .claude/
 .agents/

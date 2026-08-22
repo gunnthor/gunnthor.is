@@ -5,7 +5,7 @@ import { site } from "@/content/site";
 import { mulberry32 } from "@/lib/rng";
 
 export const alt =
-  "Gunnþór Karl Rafnsson — I work with data, explore AI, and turn curious ideas into working products.";
+  "Gunnþór Karl Rafnsson. I work with data, explore AI, and turn curious ideas into working products.";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -16,8 +16,8 @@ const ROWS = 4;
  * Social preview, rendered to PNG at build time. Uses the same dot field and
  * palette as the site so a shared link looks like the page it opens.
  *
- * Satori supports flexbox only — the dot grid is built from nested rows, not
- * CSS grid. The bundled TTF is required for þ / ó / ð to render at all.
+ * Satori supports flexbox only, so the dot grid is built from nested rows
+ * rather than CSS grid. The bundled TTF is required for þ / ó / ð to render at all.
  */
 export default async function OpengraphImage() {
   const fontData = await readFile(

@@ -2,7 +2,7 @@
 
 All project content lives in one file: [`src/content/projects.ts`](../src/content/projects.ts).
 Nothing is fetched from the GitHub API at build time or at runtime. The site is a
-curated selection, not a mirror of the account — ordering and emphasis are
+curated selection, not a mirror of the account. Ordering and emphasis are
 editorial decisions.
 
 ## The rules
@@ -40,10 +40,10 @@ editorial decisions.
 | `tagline`     | One sentence: what the thing actually is. No throat-clearing.                    |
 | `summary`     | The idea or the problem. Why did this need to exist?                             |
 | `built`       | What you built. Concrete nouns.                                                  |
-| `interesting` | The one decision worth reading about — a constraint, a tradeoff, a rule.         |
+| `interesting` | The one decision worth reading about: a constraint, a tradeoff, a rule.         |
 | `stack`       | Main technologies, most significant first. Three or four, not everything.        |
 | `status`      | `Live`, `In progress` or `Archived`.                                             |
-| `facts`       | 3–4 key/value rows. Short values — they render as a single-line spec sheet.      |
+| `facts`       | 3 or 4 key/value rows. Short values render as a single-line spec sheet.      |
 | `repo`        | GitHub URL.                                                                      |
 | `live`        | Live URL. Omit the field entirely if there is not one; the card adapts.          |
 | `featured`    | `true` to show on the homepage.                                                  |
@@ -62,7 +62,7 @@ facts: [
 ],
 ```
 
-Avoid vague labels like "Impact" or "Result" — that is where invented metrics
+Avoid vague labels like "Impact" or "Result", because that is where invented metrics
 creep in.
 
 ## Removing a project

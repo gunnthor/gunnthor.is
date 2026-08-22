@@ -5,8 +5,8 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
-/* Self-hosted at build time by next/font — no runtime request to Google, no
-   layout shift. latin-ext is required for þ, ð, æ, ö. */
+/* Self-hosted at build time by next/font, so there is no runtime request to
+   Google and no layout shift. latin-ext is required for þ, ð, æ, ö. */
 const display = Space_Grotesk({
   subsets: ["latin", "latin-ext"],
   display: "swap",
@@ -22,8 +22,8 @@ const mono = JetBrains_Mono({
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: {
-    default: `${site.name} — data, AI, and working products`,
-    template: `%s — ${site.shortName}`,
+    default: `${site.name} · data, AI, and working products`,
+    template: `%s · ${site.shortName}`,
   },
   description: site.metaDescription,
   alternates: { canonical: "/" },
@@ -32,14 +32,14 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: `${site.name} — data, AI, and working products`,
+    title: `${site.name} · data, AI, and working products`,
     description: site.metaDescription,
     url: site.url,
     locale: "en",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${site.name} — data, AI, and working products`,
+    title: `${site.name} · data, AI, and working products`,
     description: site.metaDescription,
   },
   robots: {

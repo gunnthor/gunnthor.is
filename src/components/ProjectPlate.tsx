@@ -108,7 +108,7 @@ export function ProjectPlate({
             rel="noopener noreferrer"
           >
             Open live <span aria-hidden="true">↗</span>
-            <span className="sr-only">— {project.title}, opens in a new tab</span>
+            <span className="sr-only">{project.title}, opens in a new tab</span>
           </a>
         ) : null}
         <a

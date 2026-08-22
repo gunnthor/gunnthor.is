@@ -2,7 +2,7 @@
  * Deterministic PRNG (mulberry32).
  *
  * The dot field needs random-looking scatter offsets, but the markup is
- * rendered on the server and hydrated on the client — Math.random() would
+ * rendered on the server and hydrated on the client, so Math.random() would
  * produce different values in each and trigger a hydration mismatch. A seeded
  * generator gives identical output on both sides.
  */

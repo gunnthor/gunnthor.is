@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ------------------------------------------------------------------ *
- *  Data Lab — near-black canvas, one signal colour, mono metadata.
+ *  Data Lab: near-black canvas, one signal colour, mono metadata.
  *  The accent is rationed on purpose: links on hover, focus rings,
  *  section markers and the settle animation. Everything else is grey.
  * ------------------------------------------------------------------ */
@@ -111,7 +111,7 @@
     signal-fade 1.6s ease-out var(--d) both;
 }
 
-/* A handful of dots stay lit — the records that made it through. */
+/* A handful of dots stay lit: the records that made it through. */
 .dot[data-lit="true"] {
   color: var(--color-signal-deep);
   animation:

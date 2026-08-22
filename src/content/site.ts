@@ -6,7 +6,7 @@
 /**
  * The intended public contact address.
  *
- * The mailbox does NOT exist yet — see docs/email-forwarding.md for how to set
+ * The mailbox does NOT exist yet. See docs/email-forwarding.md for how to set
  * it up. Until it accepts mail, the site deliberately shows no email at all
  * rather than a mailto: link that silently goes nowhere.
  *
@@ -40,7 +40,7 @@ export const site = {
   statement:
     "I work with data, explore AI, and turn curious ideas into working products.",
   about: [
-    "I spend my working life moving data between systems that were never meant to talk to each other — reconciling shapes, chasing down the records that do not fit, and making sure nothing quietly disappears in transit.",
+    "I spend my working life moving data between systems that were never meant to talk to each other: reconciling shapes, chasing down the records that do not fit, and making sure nothing quietly disappears in transit.",
     "Outside that, I build small things properly. Most of what is here started as a question I could not answer by searching, so I built the thing that answers it. I like projects where the hard part is the data model rather than the framework, and I would rather ship something narrow and finished than broad and vague.",
   ],
   links: {

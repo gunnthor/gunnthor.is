@@ -30,7 +30,7 @@ Email *forwarding* only solves **receiving**. It gets mail from
 **Replying is a separate problem.** Gmail's "Send mail as" needs a real outbound
 SMTP server to send from an address it does not own. Every free forwarding tier
 is inbound-only, so with a free plan your replies still leave as
-`gunnthor0405@gmail.com` — which somewhat defeats putting the domain address on
+`gunnthor0405@gmail.com`, which somewhat defeats putting the domain address on
 the site.
 
 So the real choice is: free and receive-only, or a few dollars a month and a
@@ -40,11 +40,11 @@ proper two-way address.
 
 | Option | Cost | Receives | Sends as | Nameserver change? |
 | ------ | ---- | -------- | -------- | ------------------ |
-| **ImprovMX** free | Free | Yes (25 aliases, 1 domain, 500/day) | No | No — stays on Vercel |
-| **Forward Email** free | Free | Yes (unlimited domains, open source) | No | No — stays on Vercel |
-| **Forward Email** paid | ~$3/mo | Yes | **Yes** (SMTP) | No — stays on Vercel |
-| **ImprovMX** Premium | ~$9/mo | Yes | **Yes** (SMTP) | No — stays on Vercel |
-| **Cloudflare Email Routing** | Free | Yes | No | **Yes — moves DNS off Vercel** |
+| **ImprovMX** free | Free | Yes (25 aliases, 1 domain, 500/day) | No | No, stays on Vercel |
+| **Forward Email** free | Free | Yes (unlimited domains, open source) | No | No, stays on Vercel |
+| **Forward Email** paid | ~$3/mo | Yes | **Yes** (SMTP) | No, stays on Vercel |
+| **ImprovMX** Premium | ~$9/mo | Yes | **Yes** (SMTP) | No, stays on Vercel |
+| **Cloudflare Email Routing** | Free | Yes | No | **Yes, moves DNS off Vercel** |
 | **Google Workspace** | ~$7/mo | Yes (real mailbox) | Yes, natively | No |
 
 Notes:
@@ -75,7 +75,7 @@ to reply from the address.**
    TXT  @   v=spf1 include:spf.improvmx.com ~all
    ```
 
-   Take the exact values from the ImprovMX dashboard at the time — do not trust
+   Take the exact values from the ImprovMX dashboard at the time. Do not trust
    the ones written here if they disagree.
 4. Wait for propagation, then confirm from a terminal:
 
@@ -96,14 +96,14 @@ export const EMAIL: string | null = INTENDED_EMAIL;
 
 Commit and push; Vercel redeploys automatically. The address then appears in the
 header, footer and contact section. Until that change, the site shows no email
-at all — there is never a dead `mailto:` link in production.
+at all, so a dead `mailto:` link can never reach production.
 
 ### If you want to reply as gunnthor@gunnthor.is
 
 Upgrade to a plan with SMTP (Forward Email at ~$3/mo is the best value), then in
 Gmail: **Settings → Accounts and Import → Send mail as → Add another email
 address**, and enter the SMTP host, port, username and password from that
-provider. Gmail sends a confirmation code to the address — which will arrive via
+provider. Gmail sends a confirmation code to the address, which will arrive via
 the forwarding you already set up.
 
 ## Sources

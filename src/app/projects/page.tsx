@@ -7,12 +7,12 @@ import { site } from "@/content/site";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "A curated index of Gunnþór Karl Rafnsson's projects: Nafnaval, Sagas of Blood & Fire, MemeGuessr and SpinPage — what each one is, why it exists, and what it is built with.",
+    "A curated index of Gunnþór Karl Rafnsson's projects: Nafnaval, Sagas of Blood & Fire, MemeGuessr and SpinPage. What each one is, why it exists, and what it is built with.",
   alternates: { canonical: "/projects" },
   openGraph: {
-    title: `Projects — ${site.shortName}`,
+    title: `Projects · ${site.shortName}`,
     description:
-      "A curated index of Gunnþór Karl Rafnsson's projects — what each one is, why it exists, and what it is built with.",
+      "A curated index of Gunnþór Karl Rafnsson's projects. What each one is, why it exists, and what it is built with.",
     url: `${site.url}/projects`,
   },
 };
@@ -55,7 +55,7 @@ export default function ProjectsPage() {
             </h2>
             <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-muted">
               Older experiments, half-finished ideas and coursework all live on
-              GitHub. Nothing there is curated — that is rather the point.
+              GitHub. Nothing there is curated, which is rather the point.
             </p>
             <p className="mt-6">
               <a

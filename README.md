@@ -6,14 +6,14 @@ Production domain (not yet deployed): `https://www.gunnthor.is`
 
 ## Stack
 
-- **Next.js 16** (App Router) — every route is statically prerendered
+- **Next.js 16** (App Router): every route is statically prerendered
 - **React 19**
 - **TypeScript 5.9**, strict, with `noUncheckedIndexedAccess`
-- **Tailwind CSS 4** — theme tokens defined in `src/app/globals.css`
-- **next/font** — Space Grotesk + JetBrains Mono, self-hosted at build time
+- **Tailwind CSS 4**: theme tokens defined in `src/app/globals.css`
+- **next/font**: Space Grotesk + JetBrains Mono, self-hosted at build time
   (`latin-ext` subset included; the Icelandic glyphs þ ð æ ö require it)
 
-No CMS, no database, no analytics, no tracking, and no client components — the
+No CMS, no database, no analytics, no tracking, and no client components. The
 site ships zero `"use client"` files.
 
 ## Commands
@@ -42,7 +42,7 @@ src/
     _assets/              TTF used only by the OG image generator (OFL)
   components/             SiteHeader, SiteFooter, ProjectPlate, SectionLabel, DotField
   content/
-    projects.ts           ALL project copy — the single source of truth
+    projects.ts           ALL project copy, the single source of truth
     site.ts               name, links, statement, about, email
   lib/rng.ts              seeded PRNG for the dot field
 docs/
@@ -55,7 +55,7 @@ Direction is "Data Lab": near-black canvas, technical grotesk with monospace
 metadata, and exactly one accent (`--color-signal`, amber `#ff9e3d`) rationed to
 links on hover, focus rings, section markers and status dots.
 
-The hero dot field is the "data in motion" motif — dots arrive scattered and
+The hero dot field is the "data in motion" motif: dots arrive scattered and
 settle into an ordered grid, a few still lit. It is pure CSS with server-rendered
 offsets from a seeded PRNG (so server and client markup match), and it is
 completely still under `prefers-reduced-motion: reduce`, where the resolved grid
@@ -71,13 +71,13 @@ Do not add projects by editing components. See
 ## Before launch
 
 - [ ] Approve all draft copy in `src/content/projects.ts` and `src/content/site.ts`
-- [ ] Set up `gunnthor@gunnthor.is` and switch `EMAIL` on — see
+- [ ] Set up `gunnthor@gunnthor.is` and switch `EMAIL` on, see
       [`docs/email-forwarding.md`](docs/email-forwarding.md)
 - [ ] Confirm every `live` URL still resolves
 
 ## Contact email
 
 `src/content/site.ts` exports `EMAIL`, currently `null`. While it is null the
-site renders no email anywhere — no dead `mailto:` link. The intended address is
+site renders no email anywhere, so no dead `mailto:` link ships. The intended address is
 `gunnthor@gunnthor.is`; switch it on only after a test message actually arrives.
 A production build refuses to run if `EMAIL` is set to an obvious placeholder.
