@@ -136,6 +136,30 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: "vindur",
+    title: "Vindur",
+    altTitle: "Wind over Reykjavík",
+    tagline:
+      "Live wind over the Reykjavík capital region, drawn as particles and scored against real observations.",
+    summary:
+      "A 2 km forecast field animated as particles moving through it, with 19 Veðurstofan weather stations laid on top. The animation is not the point. Seeing at a glance where the forecast and the actual measurements disagree is the point.",
+    built:
+      "A keyless, dependency-free map. The model grid comes from Open-Meteo's DMI Harmonie run, the station readings come straight from Veðurstofan, and a small Node server exists mainly because the observation feed sends no CORS header. A scrubber runs from 24 hours back to 48 hours ahead.",
+    interesting:
+      "It grades itself. An accuracy tab compares every station against the model interpolated to that station's exact coordinates, reporting bias, MAE and RMSE, including the rounds where the model is wrong. There is also a rule worth stating: scrub away from now and the station markers switch to model values and say so, because a stale reading should never be dressed up as a forecast.",
+    stack: ["Vanilla JavaScript", "Leaflet", "Canvas", "Node"],
+    status: "Live",
+    facts: [
+      { label: "Model", value: "DMI Harmonie, ~2 km" },
+      { label: "Observations", value: "19 Veðurstofan stations" },
+      { label: "Window", value: "24 h back, 48 h ahead" },
+      { label: "Dependencies", value: "None" },
+    ],
+    repo: "https://github.com/gunnthor/wind-reykjavik",
+    live: "https://wind-reykjavik.vercel.app",
+    featured: true,
+  },
+  {
     slug: "memeguessr",
     title: "MemeGuessr",
     tagline: "A daily GeoGuessr-style game about when memes went viral.",

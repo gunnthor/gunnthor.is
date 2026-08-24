@@ -5,6 +5,22 @@ import { SectionLabel } from "@/components/SectionLabel";
 import { featuredProjects } from "@/content/projects";
 import { EMAIL, site } from "@/content/site";
 
+/* The homepage says how many projects are below. Deriving the word from the
+   list means adding a project never leaves the prose claiming the old count. */
+const COUNT_WORDS = [
+  "No",
+  "One",
+  "Two",
+  "Three",
+  "Four",
+  "Five",
+  "Six",
+  "Seven",
+  "Eight",
+];
+const featuredCount = COUNT_WORDS[featuredProjects.length] ?? String(featuredProjects.length);
+const featuredCountLower = featuredCount.toLowerCase();
+
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
@@ -39,8 +55,8 @@ export default function HomePage() {
           </h1>
 
           <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
-            Five of them are below. Most began as a question I could not answer
-            by searching, so I built the thing that answers it.
+            {featuredCount} of them are below. Most began as a question I
+            could not answer by searching, so I built the thing that answers it.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -74,11 +90,11 @@ export default function HomePage() {
             id="work-heading"
             className="mt-6 max-w-2xl text-display leading-tight font-semibold tracking-[-0.02em] text-text"
           >
-            Five things I built and finished.
+            {featuredCount} things I built and finished.
           </h2>
 
           <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
-            All five are live. The code for every one is public.
+            All {featuredCountLower} are live. The code for every one is public.
           </p>
 
           <div className="mt-12 grid gap-5 lg:grid-cols-2">

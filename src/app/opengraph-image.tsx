@@ -108,7 +108,7 @@ export default async function OpengraphImage() {
         >
           <div style={{ display: "flex" }}>www.gunnthor.is</div>
           <div style={{ display: "flex" }}>
-            Sagas of Blood &amp; Fire · Landlíf · Nafnaval · SpinPage · MemeGuessr
+            Sagas of Blood &amp; Fire · Landlíf · Nafnaval · SpinPage · Vindur · MemeGuessr
           </div>
         </div>
       </div>

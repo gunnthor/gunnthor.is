@@ -22,7 +22,7 @@ editorial decisions.
 2. Fill in every field (see the table below).
 3. Put it in the position you want it read. Array order is display order, on the
    homepage and on `/projects`.
-4. Set `featured: true` to show it on the homepage. Five is about the comfortable
+4. Set `featured: true` to show it on the homepage. Six is about the comfortable
    maximum; past that the homepage stops being a selection.
 5. Run the checks:
 
