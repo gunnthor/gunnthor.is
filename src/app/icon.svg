@@ -1,15 +1,7 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <rect width="32" height="32" rx="6" fill="#08090a"/>
-  <g fill="#333a41">
-    <rect x="6" y="7" width="4" height="4" rx="1"/>
-    <rect x="13" y="5" width="4" height="4" rx="1"/>
-    <rect x="21" y="8" width="4" height="4" rx="1"/>
-    <rect x="6" y="15" width="4" height="4" rx="1"/>
-    <rect x="13" y="14" width="4" height="4" rx="1"/>
+  <rect width="32" height="32" rx="5" fill="#0e1010"/>
+  <g fill="#e8aa65" transform="rotate(-8 16 16)">
+    <path d="M7 7h7v7H7zM18 7h7v7h-7zM7 18h7v7H7z"/>
+    <path d="M18 18h7v7h-7z" opacity=".35"/>
   </g>
-  <g fill="#e9ebee">
-    <rect x="6" y="22" width="4" height="4" rx="1"/>
-    <rect x="13" y="22" width="4" height="4" rx="1"/>
-  </g>
-  <rect x="20" y="22" width="4" height="4" rx="1" fill="#ff9e3d"/>
 </svg>

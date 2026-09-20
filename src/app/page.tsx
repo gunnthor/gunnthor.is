@@ -5,21 +5,9 @@ import { SectionLabel } from "@/components/SectionLabel";
 import { featuredProjects } from "@/content/projects";
 import { EMAIL, site } from "@/content/site";
 
-/* The homepage says how many projects are below. Deriving the word from the
-   list means adding a project never leaves the prose claiming the old count. */
-const COUNT_WORDS = [
-  "No",
-  "One",
-  "Two",
-  "Three",
-  "Four",
-  "Five",
-  "Six",
-  "Seven",
-  "Eight",
-];
+const COUNT_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"];
 const featuredCount = COUNT_WORDS[featuredProjects.length] ?? String(featuredProjects.length);
-const featuredCountLower = featuredCount.toLowerCase();
+const allLive = featuredProjects.length > 0 && featuredProjects.every((project) => project.status === "Live");
 
 const personSchema = {
   "@context": "https://schema.org",
@@ -33,154 +21,76 @@ const personSchema = {
 export default function HomePage() {
   return (
     <>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }}
-      />
-
-      {/* ---------------------------------------------------------- Hero */}
-      <section className="border-b border-line/70">
-        <div className="mx-auto max-w-6xl px-5 pt-10 sm:px-8 sm:pt-14">
-          <DotField />
-        </div>
-
-        <div className="mx-auto max-w-6xl px-5 pt-6 pb-16 sm:px-8 sm:pt-8 sm:pb-24">
-          <p className="font-mono text-[0.72rem] tracking-[0.22em] uppercase text-signal">
-            {site.role}
-          </p>
-
-          <h1 className="mt-5 max-w-4xl text-mega leading-[0.98] font-semibold tracking-[-0.03em] text-balance text-text">
-            I work with data, explore AI, and turn curious ideas into working
-            products.
-          </h1>
-
-          <p className="mt-7 max-w-xl text-lg leading-relaxed text-muted">
-            {featuredCount} of them are below. Most began as a question I
-            could not answer by searching, so I built the thing that answers it.
-          </p>
-
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link
-              href="/projects"
-              className="rounded-xs bg-signal px-6 py-3 font-mono text-[0.75rem] tracking-[0.14em] uppercase text-ink transition-colors hover:bg-text"
-            >
-              Explore projects
-            </Link>
-            <a
-              href={site.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="rounded-xs border border-line-bright px-6 py-3 font-mono text-[0.75rem] tracking-[0.14em] uppercase text-text transition-colors hover:border-signal hover:text-signal"
-            >
-              View GitHub <span aria-hidden="true">↗</span>
-            </a>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+      <section className="hero" aria-labelledby="hero-heading">
+        <div className="site-container">
+          <div className="hero-eyebrow">
+            <span className="eyebrow"><span className="signal-dot" /> Data · AI · Software</span>
+            <span className="hero-location eyebrow">Based in Iceland <span aria-hidden="true">↗</span></span>
+          </div>
+          <div className="hero-main">
+            <div className="hero-copy">
+              <p className="hero-name">{site.name}</p>
+              <h1 id="hero-heading" className="hero-title">Curious ideas.<br /><span>Working products.</span></h1>
+              <p className="hero-statement">{site.statement}</p>
+              <div className="hero-actions">
+                <a href="#work" className="button-primary">Explore projects <span className="link-arrow" aria-hidden="true">↓</span></a>
+                <a href={site.links.github} target="_blank" rel="noopener noreferrer" className="text-link">View GitHub <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+              </div>
+            </div>
+            <div className="hero-study" aria-hidden="true">
+              <div className="study-top"><span>FIELD NOTES / 001</span><span>+</span></div>
+              <DotField />
+              <div className="study-bottom"><span>FROM COMPLEXITY</span><span>TO CLARITY ↗</span></div>
+            </div>
+          </div>
+          <div className="hero-bottom">
+            <a href="#work" className="scroll-cue"><span className="scroll-cue-arrow" aria-hidden="true">↓</span> A few things I&apos;ve put into the world</a>
+            <span className="eyebrow hero-count">{String(featuredProjects.length).padStart(2, "0")} projects <span aria-hidden="true">/</span> Public source</span>
           </div>
         </div>
       </section>
-
-      {/* -------------------------------------------------- Selected work */}
-      <section
-        aria-labelledby="work-heading"
-        className="border-b border-line/70"
-      >
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-          <SectionLabel marker="01">Selected work</SectionLabel>
-
-          <h2
-            id="work-heading"
-            className="mt-6 max-w-2xl text-display leading-tight font-semibold tracking-[-0.02em] text-text"
-          >
-            {featuredCount} things I built and finished.
-          </h2>
-
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
-            All {featuredCountLower} are live. The code for every one is public.
-          </p>
-
-          <div className="mt-12 grid gap-5 lg:grid-cols-2">
-            {featuredProjects.map((project, i) => (
-              <ProjectPlate
-                key={project.slug}
-                project={project}
-                index={i + 1}
-              />
-            ))}
+      <section id="work" className="work-section" aria-labelledby="work-heading">
+        <div className="site-container">
+          <div className="section-intro" data-reveal>
+            <div>
+              <SectionLabel marker="01">Selected work</SectionLabel>
+              <h2 id="work-heading" className="section-heading">Built out of curiosity.<br /><span>Made to be used.</span></h2>
+            </div>
+            <div className="section-intro-copy">
+              <p>{featuredCount} things I built and finished. Most began as a question I could not answer by searching, so I built the thing that answers it.</p>
+              <p className="work-status"><span className="signal-dot" />{allLive ? "All live. Public source." : "Explore the work. Read the code."}</p>
+            </div>
           </div>
-
-          <p className="mt-10">
-            <Link
-              href="/projects"
-              className="link-signal font-mono text-[0.75rem] tracking-[0.14em] uppercase"
-            >
-              Read the full index <span aria-hidden="true">→</span>
-            </Link>
-          </p>
+          <div className="project-list">{featuredProjects.map((project, i) => <ProjectPlate key={project.slug} project={project} index={i + 1} />)}</div>
+          <div className="work-ending"><p>The thinking behind the things.</p><Link href="/projects" className="text-link">Read the full project index <span className="link-arrow" aria-hidden="true">↗</span></Link></div>
         </div>
       </section>
-
-      {/* --------------------------------------------------------- About */}
-      <section aria-labelledby="about-heading" className="border-b border-line/70">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <section id="about" className="about-section" aria-labelledby="about-heading">
+        <div className="site-container">
           <SectionLabel marker="02">About</SectionLabel>
-
-          <div className="mt-6 grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-            <h2
-              id="about-heading"
-              className="text-display leading-tight font-semibold tracking-[-0.02em] text-balance text-text"
-            >
-              Messy in, ordered out.
-            </h2>
-
-            <div className="max-w-prose space-y-5 text-[1.02rem] leading-relaxed text-muted">
-              {site.about.map((paragraph) => (
-                <p key={paragraph.slice(0, 24)}>{paragraph}</p>
-              ))}
+          <div className="about-grid" data-reveal>
+            <div className="about-heading-column">
+              <h2 id="about-heading" className="section-heading">Messy in.<br /><span>Ordered out.</span></h2>
+              <div className="about-profile"><span className="profile-mark" aria-hidden="true">G<span> / </span>K<span> / </span>R</span><p>{site.role}<br />Software development · Iceland</p></div>
+            </div>
+            <div className="about-copy">
+              {site.about.map((paragraph) => <p key={paragraph.slice(0, 24)}>{paragraph}</p>)}
             </div>
           </div>
         </div>
       </section>
-
-      {/* ------------------------------------------------------- Contact */}
-      <section aria-labelledby="contact-heading">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <section id="contact" className="contact-section" aria-labelledby="contact-heading">
+        <div className="site-container" data-reveal>
           <SectionLabel marker="03">Contact</SectionLabel>
-
-          <h2
-            id="contact-heading"
-            className="mt-6 max-w-2xl text-display leading-tight font-semibold tracking-[-0.02em] text-text"
-          >
-            Get in touch.
-          </h2>
-
-          <p className="mt-5 max-w-xl text-base leading-relaxed text-muted">
-            Happy to talk about data work, or about any of the projects above.
-          </p>
-
-          <div className="mt-9 flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center sm:gap-10">
-            {EMAIL ? (
-              <a
-                href={`mailto:${EMAIL}`}
-                className="link-signal text-lg break-all sm:text-xl"
-              >
-                {EMAIL}
-              </a>
-            ) : null}
-            <a
-              href={site.links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-signal text-lg sm:text-xl"
-            >
-              LinkedIn <span aria-hidden="true">↗</span>
-            </a>
-            <a
-              href={site.links.github}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="link-signal text-lg sm:text-xl"
-            >
-              GitHub <span aria-hidden="true">↗</span>
-            </a>
+          <div className="contact-heading-row"><h2 id="contact-heading">Let&apos;s build<br /><span>something useful.</span></h2><span className="contact-arrow" aria-hidden="true">↗</span></div>
+          <div className="contact-bottom">
+            <p>Happy to talk about data work,<br className="desktop-break" /> or about any of the projects above.</p>
+            <div className="contact-links">
+              {EMAIL ? <a href={`mailto:${EMAIL}`} className="text-link">{EMAIL} <span className="link-arrow" aria-hidden="true">↗</span></a> : null}
+              <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-link">LinkedIn <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+              <a href={site.links.github} target="_blank" rel="noopener noreferrer" className="text-link">GitHub <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+            </div>
           </div>
         </div>
       </section>

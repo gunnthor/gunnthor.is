@@ -1,20 +1,22 @@
 import type { Metadata, Viewport } from "next";
-import { Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import { site } from "@/content/site";
 import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
-/* Self-hosted at build time by next/font, so there is no runtime request to
-   Google and no layout shift. latin-ext is required for þ, ð, æ, ö. */
-const display = Space_Grotesk({
-  subsets: ["latin", "latin-ext"],
+/* Bundled variable WOFF2 files keep builds offline and fonts self-hosted.
+   The Latin subset includes the Icelandic characters þ, ð, æ and ö. */
+const display = localFont({
+  src: "./_assets/SpaceGrotesk-Latin.woff2",
+  weight: "300 700",
   display: "swap",
   variable: "--font-space-grotesk",
 });
 
-const mono = JetBrains_Mono({
-  subsets: ["latin", "latin-ext"],
+const mono = localFont({
+  src: "./_assets/JetBrainsMono-Latin.woff2",
+  weight: "400 600",
   display: "swap",
   variable: "--font-jetbrains-mono",
 });
@@ -50,7 +52,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#08090a",
+  themeColor: "#0e1010",
   colorScheme: "dark",
 };
 
@@ -68,7 +70,7 @@ export default function RootLayout({
         </a>
         <div className="flex min-h-dvh flex-col">
           <SiteHeader />
-          <main id="main" className="flex-1">
+          <main id="main" tabIndex={-1} className="flex-1">
             {children}
           </main>
           <SiteFooter />

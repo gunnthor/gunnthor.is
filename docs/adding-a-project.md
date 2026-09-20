@@ -67,7 +67,16 @@ creep in.
 
 ## Removing a project
 
-Delete the entry. Nothing else references it by slug, so nothing breaks.
+Delete the entry. Remove its optional visual from `ProjectVisual.tsx` and its
+styles from `project-visuals.css` if it will no longer be used.
+
+## Project visuals
+
+`src/components/ProjectVisual.tsx` maps project slugs to decorative SVG studies.
+When adding a project, add a visual that reflects the actual idea and keep the
+`Visual study` caption. Do not invent screenshots, results, or live measurements.
+Keep graphics server rendered, accessible content in HTML, and hover motion
+disabled under `prefers-reduced-motion`.
 
 ## Changing site-wide text
 

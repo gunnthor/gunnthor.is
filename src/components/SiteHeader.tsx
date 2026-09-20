@@ -1,54 +1,20 @@
 import Link from "next/link";
-import { site, EMAIL } from "@/content/site";
-
-const navLinkClass =
-  "font-mono text-[0.7rem] tracking-[0.14em] uppercase text-muted transition-colors hover:text-signal focus-visible:text-signal";
+import { site } from "@/content/site";
 
 export function SiteHeader() {
   return (
-    <header className="border-b border-line/70">
-      <div className="mx-auto flex max-w-6xl items-baseline justify-between gap-4 px-5 py-5 sm:px-8">
-        <Link
-          href="/"
-          className="font-mono text-[0.7rem] tracking-[0.16em] uppercase text-text transition-colors hover:text-signal"
-        >
-          {site.name}
+    <header className="site-header">
+      <div className="site-container header-inner">
+        <Link href="/" className="wordmark" aria-label={`${site.name}, home`}>
+          <span className="wordmark-symbol" aria-hidden="true"><i /><i /><i /><i /></span>
+          {site.shortName}<span className="wordmark-domain">.is</span>
         </Link>
-
         <nav aria-label="Primary">
-          <ul className="flex items-center gap-4 sm:gap-6">
-            <li>
-              <Link href="/projects" className={navLinkClass}>
-                Projects
-              </Link>
-            </li>
-            <li>
-              <a
-                href={site.links.github}
-                className={navLinkClass}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                GitHub
-              </a>
-            </li>
-            <li className="hidden sm:block">
-              <a
-                href={site.links.linkedin}
-                className={navLinkClass}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                LinkedIn
-              </a>
-            </li>
-            {EMAIL ? (
-              <li className="hidden sm:block">
-                <a href={`mailto:${EMAIL}`} className={navLinkClass}>
-                  Email
-                </a>
-              </li>
-            ) : null}
+          <ul className="nav-links">
+            <li><Link href="/projects" className="nav-link">Projects</Link></li>
+            <li><Link href="/#about" className="nav-link">About</Link></li>
+            <li className="nav-contact"><Link href="/#contact" className="nav-link">Contact</Link></li>
+            <li><a href={site.links.github} target="_blank" rel="noopener noreferrer" className="nav-link nav-github">GitHub <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a></li>
           </ul>
         </nav>
       </div>

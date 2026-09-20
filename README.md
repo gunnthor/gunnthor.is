@@ -1,83 +1,63 @@
 # gunnthor.is
 
-Personal portfolio for Gunnþór Karl Rafnsson. Static, text-led, dark.
-
-Production domain (not yet deployed): `https://www.gunnthor.is`
+Personal portfolio for Gunnþór Karl Rafnsson: a dark editorial design with six
+curated projects, abstract visual studies, and an emphasis on typography.
+Canonical domain: `https://www.gunnthor.is`.
 
 ## Stack
 
-- **Next.js 16** (App Router): every route is statically prerendered
-- **React 19**
-- **TypeScript 5.9**, strict, with `noUncheckedIndexedAccess`
-- **Tailwind CSS 4**: theme tokens defined in `src/app/globals.css`
-- **next/font**: Space Grotesk + JetBrains Mono, self-hosted at build time
-  (`latin-ext` subset included; the Icelandic glyphs þ ð æ ö require it)
-
-No CMS, no database, no analytics, no tracking, and no client components. The
-site ships zero `"use client"` files.
+- Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4.
+- Both `/` and `/projects` are statically prerendered Server Components.
+- No custom client components, animation dependencies, CMS, analytics, or tracking.
+- Space Grotesk and JetBrains Mono are bundled variable WOFF2 files, loaded with
+  `next/font/local`. Builds and visitors do not request Google Fonts. The Latin
+  subsets include Icelandic characters. OFL licenses are beside the fonts.
 
 ## Commands
 
 ```sh
 npm install
 npm run dev        # http://localhost:3000
-npm run typecheck  # tsc --noEmit
-npm run lint       # eslint
-npm run build      # production build
-npm start          # serve the production build
+npm run typecheck
+npm run lint
+npm run build
+npm start
 ```
 
 ## Layout
 
-```
-src/
-  app/
-    layout.tsx            root layout, fonts, metadata
-    page.tsx              homepage: hero, selected work, about, contact
-    projects/page.tsx     curated project index
-    opengraph-image.tsx   1200x630 social preview, rendered at build time
-    globals.css           design tokens + the dot-field animation
-    icon.svg              favicon
-    sitemap.ts robots.ts
-    _assets/              TTF used only by the OG image generator (OFL)
-  components/             SiteHeader, SiteFooter, ProjectPlate, SectionLabel, DotField
-  content/
-    projects.ts           ALL project copy, the single source of truth
-    site.ts               name, links, statement, about, email
-  lib/rng.ts              seeded PRNG for the dot field
-docs/
-  adding-a-project.md     how to add or edit a project
-```
+- `src/app/page.tsx`: introduction, selected work, About, and Contact.
+- `src/app/projects/page.tsx`: complete project index with implementation notes.
+- `src/app/globals.css`: palette, layout, typography, responsive rules, and motion.
+- `src/components/ProjectPlate.tsx` and `project-plate.css`: alternating project features.
+- `src/components/ProjectVisual.tsx` and `project-visuals.css`: decorative SVG studies.
+- `src/components/DotField.tsx`: deterministic server-rendered hero graphic.
+- `src/content/projects.ts`: project copy, stacks, status, facts, and destinations.
+- `src/content/site.ts`: name, statement, About copy, social links, and email setting.
+- `src/app/_assets`: bundled fonts and licenses, including the TTF for the social image.
+- `src/app/opengraph-image.tsx`, `icon.svg`, `sitemap.ts`, `robots.ts`: sharing and discovery.
 
-## Design notes
+## Design and motion
 
-Direction is "Data Lab": near-black canvas, technical grotesk with monospace
-metadata, and exactly one accent (`--color-signal`, amber `#ff9e3d`) rationed to
-links on hover, focus rings, section markers and status dots.
+Charcoal, warm off-white, and a restrained amber accent (`#e8aa65`). Large
+headlines, thin rules, numbered sections, and alternating project compositions
+replace the former card grid. On mobile, each visual leads into its project text.
 
-The hero dot field is the "data in motion" motif: dots arrive scattered and
-settle into an ordered grid, a few still lit. It is pure CSS with server-rendered
-offsets from a seeded PRNG (so server and client markup match), and it is
-completely still under `prefers-reduced-motion: reduce`, where the resolved grid
-is the default state.
+The project graphics are **visual studies**, labelled as such; they are not
+screenshots, live data, or claims about results. SVGs are decorative and hidden
+from assistive technology. All actual project information is rendered as HTML.
 
-Every foreground/background pair in the palette meets WCAG AA (4.5:1).
+Entrance animations and scroll-driven reveals use CSS. Browsers without view
+timelines show content normally. `prefers-reduced-motion` disables all animation,
+transitions, and smooth scrolling. The sticky header and links remain keyboard
+accessible, with a skip link and visible focus outlines.
 
-## Content
+## Content and launch
 
-Do not add projects by editing components. See
-[`docs/adding-a-project.md`](docs/adding-a-project.md).
+See [adding a project](docs/adding-a-project.md) for content maintenance.
+The source descriptions are retained; review draft copy before publishing.
+Before launch, confirm live project destinations and review the preview.
 
-## Before launch
-
-- [ ] Approve all draft copy in `src/content/projects.ts` and `src/content/site.ts`
-- [ ] Set up `gunnthor@gunnthor.is` and switch `EMAIL` on, see
-      [`docs/email-forwarding.md`](docs/email-forwarding.md)
-- [ ] Confirm every `live` URL still resolves
-
-## Contact email
-
-`src/content/site.ts` exports `EMAIL`, currently `null`. While it is null the
-site renders no email anywhere, so no dead `mailto:` link ships. The intended address is
-`gunnthor@gunnthor.is`; switch it on only after a test message actually arrives.
-A production build refuses to run if `EMAIL` is set to an obvious placeholder.
+`EMAIL` remains `null`, so no unconfigured mail link is rendered. Only enable the
+intended address after a test message arrives; see
+[email forwarding](docs/email-forwarding.md). Production rejects obvious placeholders.

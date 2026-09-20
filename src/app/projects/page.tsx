@@ -20,15 +20,15 @@ export const metadata: Metadata = {
 export default function ProjectsPage() {
   return (
     <>
-      <section className="border-b border-line/70">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
+      <section className="index-hero">
+        <div className="site-container">
           <SectionLabel marker="01">Index</SectionLabel>
 
-          <h1 className="mt-6 max-w-3xl text-display leading-tight font-semibold tracking-[-0.02em] text-balance text-text">
+          <h1>
             Everything worth showing, in the order I would show it.
           </h1>
 
-          <p className="mt-6 max-w-xl text-base leading-relaxed text-muted">
+          <p>
             This is a curated list, not a mirror of my GitHub account. Each
             entry says what the thing is, what I actually built, and the one
             decision that made it interesting to work on.
@@ -37,8 +37,8 @@ export default function ProjectsPage() {
       </section>
 
       <section aria-label="Project index">
-        <div className="mx-auto max-w-6xl px-5 py-16 sm:px-8 sm:py-24">
-          <div className="grid gap-5">
+        <div className="site-container">
+          <div className="project-list">
             {projects.map((project, i) => (
               <ProjectPlate
                 key={project.slug}
@@ -49,24 +49,24 @@ export default function ProjectsPage() {
             ))}
           </div>
 
-          <div className="mt-14 rounded-sm border border-line bg-surface p-6 sm:p-8">
-            <h2 className="text-xl font-semibold tracking-tight text-text">
+          <div className="index-archive">
+            <h2>
               Looking for the rest?
             </h2>
-            <p className="mt-3 max-w-prose text-[0.95rem] leading-relaxed text-muted">
+            <div><p>
               Older experiments, half-finished ideas and coursework all live on
               GitHub. Nothing there is curated, which is rather the point.
             </p>
-            <p className="mt-6">
+            <p>
               <a
                 href={site.links.github}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="link-signal font-mono text-[0.75rem] tracking-[0.14em] uppercase"
+                className="text-link"
               >
-                Browse the full archive <span aria-hidden="true">↗</span>
+                Browse the full archive <span className="link-arrow" aria-hidden="true">↗</span>
               </a>
-            </p>
+            </p></div>
           </div>
         </div>
       </section>
