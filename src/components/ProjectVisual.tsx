@@ -194,6 +194,87 @@ function VindurVisual() {
   );
 }
 
+const quakes = [
+  [214, 298, 5, 0.9], [236, 311, 3, 0.8], [251, 289, 4, 0.75], [229, 276, 2.5, 0.6],
+  [262, 322, 3.5, 0.55], [198, 318, 2, 0.5], [276, 301, 2.5, 0.45], [244, 336, 2, 0.4],
+  [418, 181, 9, 0.9], [436, 196, 4, 0.7], [402, 170, 3, 0.55], [447, 172, 2.5, 0.4],
+  [521, 262, 3, 0.35], [538, 248, 2, 0.3], [352, 262, 2.5, 0.28], [155, 214, 2, 0.24],
+  [590, 331, 3.5, 0.3], [488, 318, 2, 0.22],
+] as const;
+
+function IcelandLiveVisual() {
+  return (
+    <svg viewBox="0 0 700 500" fill="none" focusable="false">
+      <text x="44" y="62" className="pv-mono" fontSize="11" letterSpacing="3" fill="currentColor">ICELAND LIVE</text>
+      <g stroke="currentColor" strokeOpacity=".16" strokeDasharray="3 5">
+        <ellipse cx="424" cy="186" rx="58" ry="41" transform="rotate(-18 424 186)" />
+        <path d="M150 360 238 300 330 244 424 186 520 128 610 84" />
+      </g>
+      <g>
+        {quakes.map(([x, y, r, recency], index) => (
+          <g key={index}>
+            <circle cx={x} cy={y} r={r * 3.2} stroke="#e8a75d" strokeOpacity={recency * 0.45} />
+            <circle cx={x} cy={y} r={r} fill={recency > 0.6 ? "#e8a75d" : "#dfded5"} fillOpacity={recency} />
+          </g>
+        ))}
+      </g>
+      <path d="M44 404H656" stroke="currentColor" strokeOpacity=".2" />
+      <g fill="currentColor">
+        {Array.from({ length: 30 }, (_, index) => {
+          const height = 4 + Math.abs(Math.sin(index * 1.7)) * 14 + (index > 22 ? (index - 22) * 5 : 0);
+          return <rect key={index} x={44 + index * 20.4} y={404 - height} width="12" height={height} opacity={index > 22 ? ".75" : ".22"} fill={index > 22 ? "#e8a75d" : "currentColor"} />;
+        })}
+      </g>
+      <g className="pv-mono" fontSize="10" letterSpacing="2" fill="currentColor" opacity=".55">
+        <text x="44" y="440">−24 H</text>
+        <text x="656" y="440" textAnchor="end">NOW</text>
+      </g>
+      <RegistrationMarks />
+    </svg>
+  );
+}
+
+const postcodeTiles = [
+  [0, 1, 0.3], [0, 2, 0.45], [1, 0, 0.55], [1, 1, 0.9], [1, 2, 0.7], [1, 3, 0.35],
+  [2, 0, 0.4], [2, 1, 0.75], [2, 2, 0.6], [2, 3, 0.5], [2, 4, 0.25], [3, 1, 0.5],
+  [3, 2, 0.4], [3, 3, 0.3], [3, 4, 0.2], [4, 2, 0.28], [4, 3, 0.18],
+] as const;
+
+function FasteignVisual() {
+  return (
+    <svg viewBox="0 0 700 500" fill="none" focusable="false">
+      <text x="44" y="62" className="pv-mono" fontSize="11" letterSpacing="3" fill="currentColor">FASTEIGN</text>
+      <g>
+        {postcodeTiles.map(([row, col, value], index) => (
+          <rect
+            key={index}
+            x={320 + col * 58 - row * 12}
+            y={80 + row * 48}
+            width="52"
+            height="44"
+            fill={value > 0.65 ? "#e8a75d" : "#dfded5"}
+            fillOpacity={value > 0.65 ? value * 0.85 : value * 0.35}
+            stroke="#101211"
+          />
+        ))}
+      </g>
+      <text x="44" y="190" className="pv-display" fontSize="72" letterSpacing="-3" fill="currentColor">kr/m²</text>
+      <g stroke="currentColor" strokeOpacity=".4">
+        <path d="M44 220H232" />
+        <path d="M44 234h34m8 0h22m8 0h58m8 0h14" strokeOpacity=".25" />
+      </g>
+      <path d="M44 404H656" stroke="currentColor" strokeOpacity=".2" />
+      <path d="M44 394C120 390 170 385 240 378S360 368 420 356 540 340 656 330" stroke="#e8a75d" strokeOpacity=".8" />
+      <path d="M44 399C120 397 170 394 240 390S360 384 420 378 540 370 656 366" stroke="currentColor" strokeOpacity=".3" strokeDasharray="2 5" />
+      <g className="pv-mono" fontSize="10" letterSpacing="2" fill="currentColor" opacity=".55">
+        <text x="44" y="440">ACTUAL SALES</text>
+        <text x="656" y="440" textAnchor="end">NOT ASKING PRICES</text>
+      </g>
+      <RegistrationMarks />
+    </svg>
+  );
+}
+
 function MemeGuessrVisual() {
   return (
     <svg viewBox="0 0 700 500" fill="none" focusable="false">
@@ -222,6 +303,8 @@ function MemeGuessrVisual() {
 
 const visuals = {
   "sagas-of-blood-and-fire": SagasVisual,
+  "iceland-live": IcelandLiveVisual,
+  fasteign: FasteignVisual,
   landlif: LandlifVisual,
   nafnaval: NafnavalVisual,
   spinpage: SpinPageVisual,

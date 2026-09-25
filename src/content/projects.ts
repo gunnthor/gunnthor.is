@@ -66,6 +66,52 @@ export const projects: Project[] = [
     featured: true,
   },
   {
+    slug: "iceland-live",
+    title: "Iceland Live",
+    tagline:
+      "A real-time map of earthquakes, volcanic systems and official warnings around Iceland.",
+    summary:
+      "Veðurstofan publishes everything needed to follow what the ground is doing, but spread across feeds and pages. A raw count also says very little: twenty earthquakes is an ordinary day in one place and a warning sign in another.",
+    built:
+      "The homepage is the application: a dark map of every recorded earthquake in the chosen window, with official warnings, volcanic systems, Reykjanes lava fields, radar interferograms, air quality, road cameras and IMO's dispersal simulations layered on top.",
+    interesting:
+      "It compares each region only with its own past, so activity is ranked by how unusual it is for that place rather than by raw volume. The written summary is generated deterministically from the data with no language model, and anything that is a model rather than a measurement says so before it shows a number.",
+    stack: ["Next.js", "TypeScript", "MapLibre", "Tailwind CSS"],
+    status: "Live",
+    facts: [
+      { label: "Primary source", value: "Veðurstofa Íslands API" },
+      { label: "Windows", value: "1 h to 30 days" },
+      { label: "Summary", value: "Deterministic, no LLM" },
+      { label: "Domain", value: "live.gunnthor.is" },
+    ],
+    repo: "https://github.com/gunnthor/iceland-live",
+    live: "https://live.gunnthor.is",
+    featured: true,
+  },
+  {
+    slug: "fasteign",
+    title: "Fasteign",
+    altTitle: "Fasteignir",
+    tagline:
+      "A map-first explorer of actual property sales in the Reykjavík capital region.",
+    summary:
+      "Property prices are usually discussed through asking prices and anecdotes. HMS publishes every registered purchase agreement, which is a far better answer to 'what do homes here actually sell for', if you can get at it.",
+    built:
+      "An Icelandic-language site with a postcode choropleth of the capital region, filters for period, type, size, rooms and build year, market charts, and an address lookup that estimates a value from comparable sales and shows every comparable and its weight.",
+    interesting:
+      "The simpler model won. A ridge hedonic regression was tested on a time-separated holdout against the comparable-sales baseline and lost clearly, so it stays out of the product. Ingestion keeps source hashes and audit reasons for every row, and the unit assumption in the source data is written down rather than quietly applied.",
+    stack: ["Next.js", "TypeScript", "MapLibre", "Recharts"],
+    status: "In progress",
+    facts: [
+      { label: "Source", value: "HMS purchase agreements" },
+      { label: "Sales", value: "~107,000 in the region" },
+      { label: "Coverage", value: "7 municipalities" },
+      { label: "Language", value: "Icelandic" },
+    ],
+    repo: "https://github.com/gunnthor/Fasteignir",
+    featured: true,
+  },
+  {
     slug: "landlif",
     title: "Landlíf",
     altTitle: "Landsbyggðin lifi",

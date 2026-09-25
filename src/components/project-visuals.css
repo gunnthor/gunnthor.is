@@ -42,6 +42,14 @@
   stroke-width: 0.8;
 }
 
+.project-visual--iceland-live {
+  background: #0d0f10;
+}
+
+.project-visual--fasteign {
+  background: #181a17;
+}
+
 .project-visual--landlif {
   color: #343c31;
   background: #dfded5;
