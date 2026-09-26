@@ -225,7 +225,7 @@ export const projects: Project[] = [
     ],
     repo: "https://github.com/gunnthor/memeguessr",
     live: "https://www.memeguessr.com",
-    featured: true,
+    featured: false,
   },
 ];
 
