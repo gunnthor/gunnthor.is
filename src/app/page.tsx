@@ -1,99 +1,250 @@
 import Link from "next/link";
-import { DotField } from "@/components/DotField";
-import { ProjectPlate } from "@/components/ProjectPlate";
-import { SectionLabel } from "@/components/SectionLabel";
-import { featuredProjects } from "@/content/projects";
-import { EMAIL, site } from "@/content/site";
+import { ViewTransition } from "react";
+import { HeroMap } from "@/components/HeroMap";
+import { Facts, ProjectActions, ProjectShot, Status } from "@/components/ProjectParts";
+import { byPlacement, hasCasePage, projectNumber, projects, type Project } from "@/content/projects";
+import { EMAIL, habits, site } from "@/content/site";
 
-const COUNT_WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight"];
-const featuredCount = COUNT_WORDS[featuredProjects.length] ?? String(featuredProjects.length);
-const allLive = featuredProjects.length > 0 && featuredProjects.every((project) => project.status === "Live");
+const flagships = byPlacement("flagship");
+const features = byPlacement("feature");
+const briefs = byPlacement("brief");
+const onHome = [...flagships, ...features, ...briefs];
 
 const personSchema = {
   "@context": "https://schema.org",
   "@type": "Person",
   name: site.name,
   url: site.url,
-  description: site.statement,
+  description: site.metaDescription,
   sameAs: [site.links.github, site.links.linkedin],
 };
 
+/* Three layouts so the flagships read as a sequence, not a grid of cards. */
+const plateLayouts = ["plate--wide", "plate--side", "plate--side plate--flip"];
+
+function ProjectTitle({ project, className }: { project: Project; className?: string }) {
+  return (
+    <h3 id={`p-${project.slug}`} className={className}>
+      {hasCasePage(project) ? <Link href={`/projects/${project.slug}`}>{project.title}</Link> : project.title}
+    </h3>
+  );
+}
+
+function Plate({ project, layout }: { project: Project; layout: string }) {
+  return (
+    <article className={`plate ${layout}`} aria-labelledby={`p-${project.slug}`}>
+      <ProjectShot
+        project={project}
+        linked
+        sizes={layout === "plate--wide" ? "(min-width: 1400px) 1320px, (min-width: 641px) 92vw, 100vw" : "(min-width: 1400px) 870px, (min-width: 960px) 62vw, (min-width: 641px) 92vw, 100vw"}
+      />
+      <div className="plate-copy">
+        <ProjectTitle project={project} className="plate-title" />
+        <p className="meta">
+          <span>{projectNumber(project)}</span>
+          <span>{project.kind}</span>
+          <Status project={project} />
+        </p>
+        <p className="plate-tagline">{project.tagline}</p>
+        <p className="plate-insight">
+          <strong>The decision</strong>
+          {project.insight}
+        </p>
+        <Facts project={project} />
+        <ProjectActions project={project} />
+      </div>
+    </article>
+  );
+}
+
+function Inset({ project }: { project: Project }) {
+  return (
+    <article className="inset" aria-labelledby={`p-${project.slug}`}>
+      <ProjectShot project={project} matted linked sizes="(min-width: 1400px) 630px, (min-width: 840px) 46vw, 100vw" />
+      <p className="meta">
+        <span>{projectNumber(project)}</span>
+        <span>{project.kind}</span>
+        <Status project={project} />
+      </p>
+      <ProjectTitle project={project} />
+      <p className="inset-tagline">{project.tagline}</p>
+      <p className="inset-insight">{project.insight}</p>
+      <ProjectActions project={project} />
+    </article>
+  );
+}
+
+function Brief({ project }: { project: Project }) {
+  return (
+    <article className="brief" aria-labelledby={`p-${project.slug}`}>
+      <p className="meta">{projectNumber(project)}</p>
+      <div>
+        <ProjectTitle project={project} />
+        <p>{project.tagline}</p>
+      </div>
+      <p className="meta">
+        {project.kind} · {project.stack.slice(0, 2).join(", ")}
+      </p>
+      <ProjectActions project={project} />
+    </article>
+  );
+}
+
 export default function HomePage() {
   return (
-    <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
-      <section className="hero" aria-labelledby="hero-heading">
-        <div className="site-container">
-          <div className="hero-eyebrow">
-            <span className="eyebrow"><span className="signal-dot" /> Data · AI · Software</span>
-            <span className="hero-location eyebrow">Based in Iceland <span aria-hidden="true">↗</span></span>
+    <ViewTransition enter="page" exit="page" default="none">
+      <div>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(personSchema) }} />
+
+        <section className="hero" aria-labelledby="hero-heading">
+          <div className="wrap">
+            <div className="hero-grid">
+              <div>
+                <h1 id="hero-heading">
+                  <span className="hero-name meta">{site.name}</span>
+                  <span className="sr-only">: </span>
+                  <span className="hero-headline">
+                    {site.headline} <span className="hero-tail">{site.headlineTail}</span>
+                  </span>
+                </h1>
+                <p className="hero-lede">{site.lede}</p>
+                <div className="actions">
+                  <a href="#work" className="btn">
+                    Explore projects <span aria-hidden="true">↓</span>
+                  </a>
+                  <a href={site.links.github} className="action" target="_blank" rel="noopener noreferrer">
+                    View GitHub <span aria-hidden="true">↗</span>
+                    <span className="sr-only"> (opens in a new tab)</span>
+                  </a>
+                </div>
+              </div>
+              <HeroMap />
+            </div>
+
+            <nav className="hero-index" aria-label="Projects on this page">
+              <ol>
+                {onHome.map((project) => (
+                  <li key={project.slug}>
+                    <a href={`#p-${project.slug}`}>
+                      <span className="meta">{projectNumber(project)}</span>{" "}
+                      <span className="hero-index-title">{project.title}</span>{" "}
+                      <span className="meta hero-index-kind">{project.kind}</span>
+                    </a>
+                  </li>
+                ))}
+              </ol>
+            </nav>
           </div>
-          <div className="hero-main">
-            <div className="hero-copy">
-              <p className="hero-name">{site.name}</p>
-              <h1 id="hero-heading" className="hero-title">Curious ideas.<br /><span>Working products.</span></h1>
-              <p className="hero-statement">{site.statement}</p>
-              <div className="hero-actions">
-                <a href="#work" className="button-primary">Explore projects <span className="link-arrow" aria-hidden="true">↓</span></a>
-                <a href={site.links.github} target="_blank" rel="noopener noreferrer" className="text-link">View GitHub <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
+        </section>
+
+        <section id="work" className="band" aria-labelledby="work-heading">
+          <div className="wrap">
+            <div className="band-head">
+              <div>
+                <p className="label"><b>01</b> Selected work</p>
+                <h2 id="work-heading">Three live maps, three kinds of evidence.</h2>
+              </div>
+              <p>
+                A thousand years of recorded conflict, a live earthquake catalogue, and a wind forecast checked
+                against real stations. Each one is built around a decision about what its data can honestly say.
+              </p>
+            </div>
+            <div className="plates">
+              {flagships.map((project, i) => (
+                <Plate key={project.slug} project={project} layout={plateLayouts[i % plateLayouts.length]!} />
+              ))}
+            </div>
+          </div>
+        </section>
+
+        <section className="section" aria-labelledby="more-heading">
+          <div className="wrap">
+            <p className="label"><b>02</b> More work</p>
+            <h2 id="more-heading" className="sr-only">More work</h2>
+            <div className="insets">
+              {features.map((project) => (
+                <Inset key={project.slug} project={project} />
+              ))}
+            </div>
+            <div className="briefs">
+              {briefs.map((project) => (
+                <Brief key={project.slug} project={project} />
+              ))}
+            </div>
+            <p className="more-link">
+              <Link href="/projects" className="action action--next">
+                All {projects.length} projects in the index <span aria-hidden="true">→</span>
+              </Link>
+            </p>
+          </div>
+        </section>
+
+        <section id="about" className="section" aria-labelledby="about-heading">
+          <div className="wrap">
+            <p className="label"><b>03</b> About</p>
+            <div className="about-grid">
+              <div>
+                <h2 id="about-heading">Messy in, ordered out.</h2>
+                <p className="meta about-role">{site.role}</p>
+              </div>
+              <div className="about-copy">
+                {site.about.map((paragraph) => (
+                  <p key={paragraph.slice(0, 24)}>{paragraph}</p>
+                ))}
               </div>
             </div>
-            <div className="hero-study" aria-hidden="true">
-              <div className="study-top"><span>FIELD NOTES / 001</span><span>+</span></div>
-              <DotField />
-              <div className="study-bottom"><span>FROM COMPLEXITY</span><span>TO CLARITY ↗</span></div>
+            <div className="habits">
+              <h3 className="habits-title">Habits from migration work that show up in the projects</h3>
+              <ol>
+                {habits.map((habit) => (
+                  <li key={habit.title} className="habit">
+                    <h4>{habit.title}</h4>
+                    <p>{habit.body}</p>
+                    <p className="evidence">
+                      {habit.evidence.map((item) => (
+                        <Link key={item.slug} href={`/projects/${item.slug}`} className="action action--next">
+                          {item.label} <span aria-hidden="true">→</span>
+                          <span className="sr-only"> case notes</span>
+                        </Link>
+                      ))}
+                    </p>
+                  </li>
+                ))}
+              </ol>
             </div>
           </div>
-          <div className="hero-bottom">
-            <a href="#work" className="scroll-cue"><span className="scroll-cue-arrow" aria-hidden="true">↓</span> A few things I&apos;ve put into the world</a>
-            <span className="eyebrow hero-count">{String(featuredProjects.length).padStart(2, "0")} projects <span aria-hidden="true">/</span> Public source</span>
-          </div>
-        </div>
-      </section>
-      <section id="work" className="work-section" aria-labelledby="work-heading">
-        <div className="site-container">
-          <div className="section-intro" data-reveal>
-            <div>
-              <SectionLabel marker="01">Selected work</SectionLabel>
-              <h2 id="work-heading" className="section-heading">Built out of curiosity.<br /><span>Made to be used.</span></h2>
-            </div>
-            <div className="section-intro-copy">
-              <p>{featuredCount} things I built and finished. Most began as a question I could not answer by searching, so I built the thing that answers it.</p>
-              <p className="work-status"><span className="signal-dot" />{allLive ? "All live. Public source." : "Explore the work. Read the code."}</p>
-            </div>
-          </div>
-          <div className="project-list">{featuredProjects.map((project, i) => <ProjectPlate key={project.slug} project={project} index={i + 1} />)}</div>
-          <div className="work-ending"><p>The thinking behind the things.</p><Link href="/projects" className="text-link">Read the full project index <span className="link-arrow" aria-hidden="true">↗</span></Link></div>
-        </div>
-      </section>
-      <section id="about" className="about-section" aria-labelledby="about-heading">
-        <div className="site-container">
-          <SectionLabel marker="02">About</SectionLabel>
-          <div className="about-grid" data-reveal>
-            <div className="about-heading-column">
-              <h2 id="about-heading" className="section-heading">Messy in.<br /><span>Ordered out.</span></h2>
-              <div className="about-profile"><span className="profile-mark" aria-hidden="true">G<span> / </span>K<span> / </span>R</span><p>{site.role}<br />Software development · Iceland</p></div>
-            </div>
-            <div className="about-copy">
-              {site.about.map((paragraph) => <p key={paragraph.slice(0, 24)}>{paragraph}</p>)}
+        </section>
+
+        <section id="contact" className="section contact" aria-labelledby="contact-heading">
+          <div className="wrap">
+            <p className="label"><b>04</b> Contact</p>
+            <h2 id="contact-heading">
+              Happy to talk about data work, <span className="contact-tail">or any of these projects.</span>
+            </h2>
+            <div className="contact-row">
+              <p className="meta">
+                <span>{site.location}</span>
+                <span>UTC+0 all year</span>
+              </p>
+              <div className="contact-links">
+                {EMAIL ? (
+                  <a href={`mailto:${EMAIL}`}>
+                    {EMAIL} <span aria-hidden="true">↗</span>
+                  </a>
+                ) : null}
+                <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer">
+                  LinkedIn <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+                <a href={site.links.github} target="_blank" rel="noopener noreferrer">
+                  GitHub <span aria-hidden="true">↗</span>
+                  <span className="sr-only"> (opens in a new tab)</span>
+                </a>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
-      <section id="contact" className="contact-section" aria-labelledby="contact-heading">
-        <div className="site-container" data-reveal>
-          <SectionLabel marker="03">Contact</SectionLabel>
-          <div className="contact-heading-row"><h2 id="contact-heading">Let&apos;s build<br /><span>something useful.</span></h2><span className="contact-arrow" aria-hidden="true">↗</span></div>
-          <div className="contact-bottom">
-            <p>Happy to talk about data work,<br className="desktop-break" /> or about any of the projects above.</p>
-            <div className="contact-links">
-              {EMAIL ? <a href={`mailto:${EMAIL}`} className="text-link">{EMAIL} <span className="link-arrow" aria-hidden="true">↗</span></a> : null}
-              <a href={site.links.linkedin} target="_blank" rel="noopener noreferrer" className="text-link">LinkedIn <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
-              <a href={site.links.github} target="_blank" rel="noopener noreferrer" className="text-link">GitHub <span className="link-arrow" aria-hidden="true">↗</span><span className="sr-only"> (opens in a new tab)</span></a>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+        </section>
+      </div>
+    </ViewTransition>
   );
 }

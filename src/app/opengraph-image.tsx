@@ -1,28 +1,34 @@
-import { readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import { site } from "@/content/site";
-import { mulberry32 } from "@/lib/rng";
+import { MAP_WIDTH, dotRows } from "@/lib/dot-map";
+import { ogFonts, ogSize } from "@/lib/og";
 
-export const alt = "Gunnþór Karl Rafnsson. Curious ideas. Working products. Data, AI and software.";
-export const size = { width: 1200, height: 630 };
+export const alt = `${site.name}. ${site.headline} ${site.headlineTail}`;
+export const size = ogSize;
 export const contentType = "image/png";
 
 export default async function OpengraphImage() {
-  const fontData = await readFile(join(process.cwd(), "src/app/_assets/SpaceGrotesk-Bold.ttf"));
-  const random = mulberry32(0x6e61666e);
-  const dots = Array.from({ length: 132 }, (_, i) => ({ x: 845 + (i % 11) * 22, y: 170 + Math.floor(i / 11) * 22, lit: random() > 0.88, opacity: 0.2 + random() * 0.5 }));
+  const scale = 470 / MAP_WIDTH;
+  const dots = dotRows().flatMap((row) => row.xs.map((x) => ({ x: 680 + x * scale, y: 150 + row.y * scale })));
+
   return new ImageResponse(
-    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", backgroundColor: "#0e1010", padding: "56px 64px", fontFamily: "Space Grotesk" }}>
-      <div style={{ display: "flex", justifyContent: "space-between", fontSize: 19, color: "#a6aaa2" }}><span>{site.name}</span><span style={{ color: "#e8aa65" }}>DATA · AI · SOFTWARE</span></div>
-      <div style={{ display: "flex", flexDirection: "column" }}>
-        <div style={{ display: "flex", fontSize: 76, letterSpacing: -4, lineHeight: 1.05, color: "#efeee7" }}>Curious ideas.</div>
-        <div style={{ display: "flex", fontSize: 76, letterSpacing: -4, lineHeight: 1.1, color: "#e8aa65" }}>Working products.</div>
-        <div style={{ display: "flex", maxWidth: 690, marginTop: 25, fontSize: 23, lineHeight: 1.5, color: "#a6aaa2" }}>{site.statement}</div>
+    <div style={{ width: "100%", height: "100%", display: "flex", flexDirection: "column", justifyContent: "space-between", backgroundColor: "#f2f0e9", padding: "60px 64px", fontFamily: "Newsreader", color: "#16181b" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", fontFamily: "Geist Mono", fontSize: 18, letterSpacing: 1, color: "#5a5e63" }}>
+        <span>{site.name.toUpperCase()}</span>
+        <span>GUNNTHOR.IS</span>
       </div>
-      {dots.map((dot, i) => <div key={i} style={{ position: "absolute", left: dot.x, top: dot.y, display: "flex", width: 4, height: 4, borderRadius: 2, backgroundColor: dot.lit ? "#e8aa65" : "#a6aaa2", opacity: dot.opacity }} />)}
-      <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #2b302e", paddingTop: 23, fontSize: 18, color: "#a6aaa2" }}><span>gunnthor.is</span><span>Selected work / Built in Iceland</span></div>
+      {dots.map((dot, i) => (
+        <div key={i} style={{ position: "absolute", left: dot.x - 3, top: dot.y - 3, width: 6, height: 6, borderRadius: 3, backgroundColor: "#16181b", display: "flex" }} />
+      ))}
+      <div style={{ display: "flex", flexDirection: "column", maxWidth: 620 }}>
+        <div style={{ display: "flex", fontSize: 66, lineHeight: 1.02, letterSpacing: -1.5 }}>{site.headline}</div>
+        <div style={{ display: "flex", fontSize: 66, lineHeight: 1.1, letterSpacing: -1.5, color: "#5a5e63" }}>{site.headlineTail}</div>
+      </div>
+      <div style={{ display: "flex", justifyContent: "space-between", borderTop: "1px solid #16181b", paddingTop: 20, fontFamily: "Geist Mono", fontSize: 17, letterSpacing: 1, color: "#5a5e63" }}>
+        <span>DATA MIGRATION · AI EXPERIMENTS · SOFTWARE</span>
+        <span style={{ color: "#b8321a" }}>ICELAND</span>
+      </div>
     </div>,
-    { ...size, fonts: [{ name: "Space Grotesk", data: fontData, weight: 700, style: "normal" }] },
+    { ...ogSize, fonts: await ogFonts() },
   );
 }

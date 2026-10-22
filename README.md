@@ -1,63 +1,68 @@
 # gunnthor.is
 
-Personal portfolio for Gunnþór Karl Rafnsson: a dark editorial design with six
-curated projects, abstract visual studies, and an emphasis on typography.
-Canonical domain: `https://www.gunnthor.is`.
+Personal portfolio for Gunnþór Karl Rafnsson. It is designed like a survey
+sheet: warm paper, a serif typeface, one survey-red accent, real screenshots of
+the projects, and a dot map of Iceland in the hero. The canonical domain is
+`https://www.gunnthor.is`.
 
 ## Stack
 
-- Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4.
-- Both `/` and `/projects` are statically prerendered Server Components.
-- No custom client components, animation dependencies, CMS, analytics, or tracking.
-- Space Grotesk and JetBrains Mono are bundled variable WOFF2 files, loaded with
-  `next/font/local`. Builds and visitors do not request Google Fonts. The Latin
-  subsets include Icelandic characters. OFL licenses are beside the fonts.
+- Next.js 16 App Router, React 19, strict TypeScript, Tailwind CSS 4 (mostly
+  for its reset and a few utilities; the design lives in `globals.css`).
+- Every route is prerendered, and the case pages use `generateStaticParams`.
+  There are two tiny client components: `NavLink`, for `aria-current`, and
+  `PlayOnce`, which keeps the hero animation from replaying.
+- Newsreader and Geist Mono are self-hosted variable WOFF2 files, loaded with
+  `next/font/local`. Their OFL licences sit beside them in `src/app/_assets`.
+- There is no CMS, database, analytics or tracking. GitHub data comes from a
+  committed snapshot, never from a live request.
 
 ## Commands
 
 ```sh
 npm install
-npm run dev        # http://localhost:3000
+npm run dev          # http://localhost:3000
 npm run typecheck
 npm run lint
-npm run build
-npm start
+npm run build && npm start
+npm run sync:github  # refresh src/content/github.json, then review and commit
 ```
 
 ## Layout
 
-- `src/app/page.tsx`: introduction, selected work, About, and Contact.
-- `src/app/projects/page.tsx`: complete project index with implementation notes.
-- `src/app/globals.css`: palette, layout, typography, responsive rules, and motion.
-- `src/components/ProjectPlate.tsx` and `project-plate.css`: alternating project features.
-- `src/components/ProjectVisual.tsx` and `project-visuals.css`: decorative SVG studies.
-- `src/components/DotField.tsx`: deterministic server-rendered hero graphic.
-- `src/content/projects.ts`: project copy, stacks, status, facts, and destinations.
-- `src/content/site.ts`: name, statement, About copy, social links, and email setting.
-- `src/app/_assets`: bundled fonts and licenses, including the TTF for the social image.
-- `src/app/opengraph-image.tsx`, `icon.svg`, `sitemap.ts`, `robots.ts`: sharing and discovery.
+- `src/app/page.tsx` is the homepage. It has these sections:
+  - The hero and its map.
+  - The flagship band.
+  - More work.
+  - About, with the habits that carry over from data work.
+  - Contact.
+- `src/app/projects/page.tsx` is the project index (the ledger).
+- `src/app/projects/[slug]/page.tsx` holds the case pages, for projects with
+  verified `decisions`.
+- `src/components/HeroMap.tsx` and `src/lib/dot-map.ts` draw Iceland as a dot
+  grid, built from Natural Earth (public domain) in `src/content/geo/`.
+- `src/components/ProjectParts.tsx` contains the screenshot, status, facts and
+  actions shared across pages.
+- `src/content/projects.ts` holds the curated project content and is the single
+  source of truth.
+- `src/content/shots.ts` and `src/content/shots/` hold the screenshots and
+  their captions.
+- `src/content/site.ts` holds the headline, About text, habits, links and the
+  email guard.
+- `src/content/github.json` is the snapshot written by
+  `scripts/sync-github.ts`.
 
-## Design and motion
+## Docs
 
-Charcoal, warm off-white, and a restrained amber accent (`#e8aa65`). Large
-headlines, thin rules, numbered sections, and alternating project compositions
-replace the former card grid. On mobile, each visual leads into its project text.
+- [Design system](docs/portfolio-design-system.md): tokens, type, patterns and
+  motion.
+- [Redesign audit](docs/portfolio-redesign-audit.md): what changed and why.
+- [Adding a project](docs/adding-a-project.md): content, screenshots and the
+  GitHub sync.
+- [Email forwarding](docs/email-forwarding.md).
 
-The project graphics are **visual studies**, labelled as such; they are not
-screenshots, live data, or claims about results. SVGs are decorative and hidden
-from assistive technology. All actual project information is rendered as HTML.
+## Content status
 
-Entrance animations and scroll-driven reveals use CSS. Browsers without view
-timelines show content normally. `prefers-reduced-motion` disables all animation,
-transitions, and smooth scrolling. The sticky header and links remain keyboard
-accessible, with a skip link and visible focus outlines.
-
-## Content and launch
-
-See [adding a project](docs/adding-a-project.md) for content maintenance.
-The source descriptions are retained; review draft copy before publishing.
-Before launch, confirm live project destinations and review the preview.
-
-`EMAIL` remains `null`, so no unconfigured mail link is rendered. Only enable the
-intended address after a test message arrives; see
-[email forwarding](docs/email-forwarding.md). Production rejects obvious placeholders.
+All prose is draft copy, and needs approval before launch. `EMAIL` stays `null`
+until the mailbox works, so no mail link is rendered. Production builds reject
+obvious placeholder addresses.

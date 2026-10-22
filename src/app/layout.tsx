@@ -5,28 +5,33 @@ import { SiteHeader } from "@/components/SiteHeader";
 import { SiteFooter } from "@/components/SiteFooter";
 import "./globals.css";
 
-/* Bundled variable WOFF2 files keep builds offline and fonts self-hosted.
-   The Latin subset includes the Icelandic characters þ, ð, æ and ö. */
-const display = localFont({
-  src: "./_assets/SpaceGrotesk-Latin.woff2",
-  weight: "300 700",
+/* Self-hosted variable WOFF2 files, so builds and visitors never request
+   Google Fonts. Subset to Latin-1 plus typographic punctuation (þ, ð, æ, ö
+   and the accented vowels included) and limited to weights 300 to 500.
+   There is deliberately no italic: it put 127 KB on the critical path for two
+   half-headlines, and muted roman does the same job. */
+const newsreader = localFont({
+  src: "./_assets/Newsreader-Latin.woff2",
+  weight: "300 500",
+  style: "normal",
   display: "swap",
-  variable: "--font-space-grotesk",
+  variable: "--font-newsreader",
+  adjustFontFallback: "Times New Roman",
 });
 
-const mono = localFont({
-  src: "./_assets/JetBrainsMono-Latin.woff2",
+const geistMono = localFont({
+  src: "./_assets/GeistMono-Latin.woff2",
   weight: "400 600",
   display: "swap",
-  variable: "--font-jetbrains-mono",
+  variable: "--font-geist-mono",
+  adjustFontFallback: false,
 });
+
+const title = `${site.name} · Maps and tools from Iceland's public data`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
-  title: {
-    default: `${site.name} · data, AI, and working products`,
-    template: `%s · ${site.shortName}`,
-  },
+  title: { default: title, template: `%s · ${site.name}` },
   description: site.metaDescription,
   alternates: { canonical: "/" },
   authors: [{ name: site.name, url: site.url }],
@@ -34,16 +39,12 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: site.name,
-    title: `${site.name} · data, AI, and working products`,
+    title,
     description: site.metaDescription,
     url: site.url,
     locale: "en",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: `${site.name} · data, AI, and working products`,
-    description: site.metaDescription,
-  },
+  twitter: { card: "summary_large_image", title, description: site.metaDescription },
   robots: {
     index: true,
     follow: true,
@@ -52,19 +53,17 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0e1010",
-  colorScheme: "dark",
+  themeColor: "#f2f0e9",
+  colorScheme: "light",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className={`${display.variable} ${mono.variable}`}>
-      <body className="min-h-dvh bg-ink text-text antialiased">
+    <html lang="en" className={`${newsreader.variable} ${geistMono.variable}`}>
+      <body className="min-h-dvh">
         <a
           href="#main"
-          className="sr-only focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-50 focus:rounded-sm focus:bg-signal focus:px-4 focus:py-2 focus:font-mono focus:text-sm focus:text-ink"
+          className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-50 focus:bg-[var(--ink)] focus:px-4 focus:py-3 focus:font-mono focus:text-sm focus:text-[var(--paper)]"
         >
           Skip to content
         </a>
