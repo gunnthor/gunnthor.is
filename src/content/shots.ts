@@ -7,6 +7,8 @@ import nafnaval from "./shots/nafnaval.webp";
 import nafnavalDetail from "./shots/nafnaval-detail.webp";
 import sagas from "./shots/sagas.webp";
 import sagasDetail from "./shots/sagas-detail.webp";
+import spinpage from "./shots/spinpage.webp";
+import spinpageDetail from "./shots/spinpage-detail.webp";
 import vindur from "./shots/vindur.webp";
 import vindurDetail from "./shots/vindur-detail.webp";
 
@@ -34,9 +36,9 @@ export const shots: Partial<Record<string, Shot>> = {
   "sagas-of-blood-and-fire": {
     wide: sagas,
     detail: sagasDetail,
-    alt: "Sagas of Blood & Fire on its parchment base map: Iceland covered in coloured markers for battles, raids and executions, with era and confidence filters above and a timeline of events from 875 to 1976 below.",
-    captured: "2026-10-22",
-    credit: "Map tiles ©\u00a0Esri. Source: Esri, USGS, NOAA",
+    alt: "Sagas of Blood & Fire after its October 2026 redesign: satellite imagery of Iceland scattered with round markers for battles, killings, burnings and raids, the story of Snorri Sturluson's assassination in 1241 open on a paper panel at the right, and a time dock of events from 875 to 1976 along the bottom.",
+    captured: "2026-10-31",
+    credit: "Imagery © Esri, Maxar, Earthstar Geographics · Glaciers © OpenStreetMap contributors",
   },
   "iceland-live": {
     wide: icelandLive,
@@ -60,6 +62,13 @@ export const shots: Partial<Record<string, Shot>> = {
     alt: "Nafnaval's page for the name Guðrún: its meaning, the two elements guð and rún it is built from with their dictionary source, its declension, and how many people in Iceland carry it.",
     captured: "2026-10-22",
     note: "Icelandic interface. Counts from Þjóðskrá",
+  },
+  spinpage: {
+    wide: spinpage,
+    detail: spinpageDetail,
+    alt: "SpinPage 2.0 in the middle of a draft: a brass wheel of coloured name slices under a scoreboard, with the nameplate ‘2nd pick, winner: Kári’ risen over it, the players list on the left and the draft board filling seat by seat on the right.",
+    captured: "2026-10-31",
+    note: "Sample names",
   },
 };
 

@@ -83,7 +83,7 @@ export const projects: Project[] = [
     summary:
       "Iceland's conflicts are thoroughly documented and poorly presented: long prose, no geography, and no easy way to see that two events happened in the same valley two centuries apart.",
     built:
-      "A map you move through rather than a page you scroll. Conflicts sit where they happened, a timeline runs underneath, and filters for era, type and confidence narrow it down. Detail opens only when you ask for it.",
+      "A map you move through rather than a page you scroll. Conflicts sit where they happened, a time dock runs underneath, and search, filters and seven guided story routes narrow it down. Open an event and it reads as a short story: what happened, who stood on each side, why it mattered, and how sure historians are.",
     interesting:
       "It is built for someone with five minutes, not a semester. That constraint, friendly and fast history for the impatient, decided the interface: the map answers ‘where and roughly when’ immediately, and everything else stays folded away. It is also honest about what is uncertain, which matters when half the sources are sagas.",
     insight:
@@ -91,8 +91,8 @@ export const projects: Project[] = [
     stack: ["React", "TypeScript", "Vite", "Leaflet"],
     status: "Live",
     facts: [
-      { label: "Events", value: "53, from 875 to 1976" },
-      { label: "Interface", value: "Map, timeline, filters" },
+      { label: "Events", value: "55, from 875 to 1976" },
+      { label: "Story routes", value: "7 guided tours" },
       { label: "Languages", value: "English and Icelandic" },
     ],
     repo: "https://github.com/gunnthor/IcelandHistoryMap",
@@ -101,17 +101,27 @@ export const projects: Project[] = [
     decisions: [
       {
         title: "Confidence is part of the data",
-        body: "Each event is tagged high, medium or low confidence, and the map can be filtered by it. When a saga-era location is uncertain, the closest known modern place stands in as a placeholder and the location name says so.",
-        source: "README, Adding a new event; Confidence levels",
+        body: "Each event is tagged high, medium or low confidence, and the map can be filtered by it. Confidence is drawn as solidity, never as fading: a marker's rim is solid, dashed or dotted. When a saga-era location is uncertain, the closest known modern place stands in and the location name says so.",
+        source: "README, Correcting coordinates; Confidence levels. docs/DESIGN.md, Direction; Chrome",
+      },
+      {
+        title: "One slot per event, not a scale",
+        body: "The time dock gives every event an equal slot in chronological order instead of plotting years to scale. The crowded Sturlung decades get room to breathe, and 875 to 1976 still reads left to right.",
+        source: "docs/DESIGN.md, Timeline",
+      },
+      {
+        title: "One look that works on every map",
+        body: "The 2026 redesign scored three visual directions. The dark ‘basalt and vellum’ one won because it was the only one that stayed legible over all four base maps, from satellite imagery to Ortelius's map of 1590. Long reading happens on paper-coloured panels.",
+        source: "docs/DESIGN.md, Direction",
       },
       {
         title: "The data drives the interface",
         body: "The timeline range and the year sliders are derived from the events themselves, so adding an event never means editing a constant somewhere else.",
-        source: "README, Adding a new event",
+        source: "README, Correcting coordinates",
       },
       {
         title: "Every event has an address",
-        body: "Selecting an event updates the URL hash, so any point on the map can be shared as a direct link. Markers and timeline events can be reached and opened with the keyboard.",
+        body: "Each event has its own shareable URL, and older links in the previous format still resolve. Markers and the timeline are single tab stops: arrow keys move within them and Enter opens an event.",
         source: "README, Keyboard shortcuts",
       },
     ],
@@ -259,6 +269,59 @@ export const projects: Project[] = [
     ],
   },
   {
+    slug: "spinpage",
+    title: "SpinPage",
+    kind: "Toy",
+    tagline:
+      "A theatrical spinning wheel for draft orders, giveaways and any choice that deserves a show.",
+    summary:
+      "Random pickers are usually joyless form controls. The drama is the point: a decision feels fairer when you watch it land.",
+    built:
+      "Version 2.0 puts the whole game on one screen that never scrolls, from a 320 px phone to a 4K monitor: the wheel, a live scoreboard and a draft board that fills seat by seat. Around it sit hand-flick spinning, synthesised sound, a gremlin that fakes the stop, and a PANIC slice that throws the table into a horse race or a row of slot machines. A Chaos slider sets how often the twists turn up.",
+    interesting:
+      "The stunts never touch the odds. Every spin draws its winner before the wheel moves, and flicks, wind-backs and the gremlin only change the route it takes to get there. Flick it by hand and you set the speed, never the result. It is still plain HTML, CSS and JavaScript: no framework, no dependencies and no build step.",
+    insight:
+      "The winner is drawn before the wheel moves. The stunts only change the route it takes to get there.",
+    stack: ["JavaScript", "Canvas", "Web Audio"],
+    status: "Live",
+    statusNote: "Version 2.0",
+    facts: [
+      { label: "Layout", value: "One screen, 320 px to 4K" },
+      { label: "Dependencies", value: "None, and no build step" },
+      { label: "Tests", value: "135 checks in 7 suites" },
+    ],
+    repo: "https://github.com/gunnthor/SpinPage",
+    live: "https://www.ruglad.com",
+    placement: "feature",
+    decisions: [
+      {
+        title: "The draw comes first",
+        body: "Every spin draws its winner, weighted by slice size, before the wheel moves a degree. Power-ups that do change the odds say so on screen, down to the percentage. The one exception, Rigged, has to be switched on by hand and switches itself off on reload.",
+        source: "README, How To Use: Is it fair?",
+      },
+      {
+        title: "Odds that lean away from repeats",
+        body: "A twist that has just happened gets rarer for a while, and once a draft has taken more spins than it has names, the twists that undo picks ease off. Nothing is forced and nothing switches off. A balance test plays thousands of drafts: at Normal, twenty names now take about 30 spins, where they used to average 58 and could run past 300.",
+        source: "README, Highlights: Chaos; Tests",
+      },
+      {
+        title: "One screen, checked at fourteen sizes",
+        body: "The wheel, the SPIN button and the live numbers are always on screen together, in four layouts from phone to desktop. A layout test fails if anything scrolls or falls off screen at any of 14 viewports from 320 × 568 to 1920 × 1080.",
+        source: "README, One screen; Tests",
+      },
+      {
+        title: "The same race at 60 Hz and 120 Hz",
+        body: "The PANIC games run at a fixed 60 steps a second, so a 120 Hz phone plays the same race as a 60 Hz monitor. Skip ignores presses for its first second, so the key that spun the wheel cannot skip the game it started.",
+        source: "README, Highlights: PANIC slice",
+      },
+      {
+        title: "Classic scripts, on purpose",
+        body: "The single file became a stylesheet and nine plain scripts rather than modules, so the page still opens straight from disk. Every change goes through one commit() that saves once and redraws everything from state, so no panel can show stale numbers.",
+        source: "README, Project Structure",
+      },
+    ],
+  },
+  {
     slug: "fasteign",
     title: "Fasteign",
     altTitle: "Fasteignir",
@@ -283,7 +346,7 @@ export const projects: Project[] = [
       { label: "Language", value: "Icelandic" },
     ],
     repo: "https://github.com/gunnthor/Fasteignir",
-    placement: "feature",
+    placement: "brief",
     decisions: [
       {
         title: "The baseline beat the model",
@@ -335,30 +398,6 @@ export const projects: Project[] = [
     syncGithub: false,
   },
   {
-    slug: "spinpage",
-    title: "SpinPage",
-    kind: "Toy",
-    tagline: "A theatrical spinning wheel and random picker.",
-    summary:
-      "Random pickers are usually joyless form controls. The drama is the point: a decision feels fairer when you watch it land.",
-    built:
-      "A canvas wheel with theatrical timing, sound, grab-and-flick spinning, and lists that persist between visits, so the same set of names is there tomorrow.",
-    interesting:
-      "The theatre never touches the odds. Every spin draws its winner before the wheel moves, and the stunts only change the route it takes to get there. Flick it by hand and you set the speed, never the result. All of it lives in one index.html with no framework and no build step.",
-    insight:
-      "The winner is drawn before the wheel moves. The stunts only change the route it takes to get there.",
-    stack: ["JavaScript", "Canvas", "Web Audio"],
-    status: "Live",
-    facts: [
-      { label: "Dependencies", value: "None" },
-      { label: "Build step", value: "None" },
-      { label: "Persistence", value: "Local, per browser" },
-    ],
-    repo: "https://github.com/gunnthor/SpinPage",
-    live: "https://www.ruglad.com",
-    placement: "brief",
-  },
-  {
     slug: "memeguessr",
     title: "MemeGuessr",
     kind: "Game",
@@ -399,7 +438,7 @@ export function hasCasePage(project: Project): boolean {
 export const caseProjects = projects.filter(hasCasePage);
 
 /** Slugs that have a case page, for links that must not 404. */
-export type CaseSlug = "sagas-of-blood-and-fire" | "iceland-live" | "vindur" | "nafnaval" | "fasteign";
+export type CaseSlug = "sagas-of-blood-and-fire" | "iceland-live" | "vindur" | "nafnaval" | "spinpage" | "fasteign";
 
 export function byPlacement(placement: Exclude<Placement, null>): Project[] {
   return projects.filter((project) => project.placement === placement);
